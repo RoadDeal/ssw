@@ -2,22 +2,12 @@
 * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
 
 :root {
-    /* --- NEW COLOR PALETTE BASED ON LOGO --- */
-    
-    /* Teal from the bowl - Main Accent Color (Buttons, Icons) */
-    --primary-color: #00CED1; 
-    
-    /* Gold from the cross - Hover State Color */
-    --hover-color: #FFC107;   
-    
-    /* Black from the shield - Navbar, Footer, Headers */
-    --dark-color: #000000;    
-    
-    /* Pure White - Text on dark backgrounds */
-    --white-color: #ffffff;   
-    
-    /* Off-White - Section Backgrounds for readability */
-    --bg-color: #f4f8f9;      
+    /* --- COLOR PALETTE --- */
+    --primary-color: #00CED1; /* Teal */
+    --hover-color: #FFC107;   /* Gold */
+    --dark-color: #000000;    /* Black */
+    --white-color: #ffffff;   /* White */
+    --bg-color: #f4f8f9;      /* Off-White */
 }
 
 body { 
@@ -25,18 +15,19 @@ body {
     display: flex; 
     flex-direction: column; 
     min-height: 100vh;
-    /* Pushes content down so it isn't hidden behind the fixed header */
+    /* UPDATED: Reduced padding since header is shorter now */
     padding-top: 80px; 
     background-color: var(--bg-color);
-    color: #333; /* Default text color for light backgrounds */
+    color: #333;
 }
 
 .container { max-width: 1100px; margin: auto; padding: 0 20px; }
 
-/* --- STICKY NAVBAR --- */
+/* --- UPDATED NAVBAR WITH OVERLAPPING LOGO --- */
 .navbar { 
-    background: var(--dark-color); /* Black background */
+    background: var(--dark-color); 
     color: var(--white-color); 
+    /* UPDATED: Standard padding, shorter than before */
     padding: 1rem 0; 
     position: fixed; 
     top: 0; 
@@ -44,35 +35,82 @@ body {
     width: 100%;
     z-index: 1000; 
     box-shadow: 0 2px 5px rgba(0,0,0,0.5); 
-    border-bottom: 3px solid var(--primary-color); /* Teal accent line under nav */
+    border-bottom: 3px solid var(--primary-color);
 }
 
-.navbar .container { display: flex; justify-content: space-between; align-items: center; }
+.navbar .container { 
+    display: flex; 
+    justify-content: space-between; 
+    align-items: center; 
+    /* UPDATED: This is crucial. It allows the logo to "hang" out of the box */
+    position: relative; 
+}
+
+/* --- OVERLAPPING LOGO STYLES --- */
+.logo-link {
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+    gap: 15px;
+    height: 60px; 
+    position: relative; 
+}
+
+.logo-img {
+    height: 100px;
+    width: auto;
+    position: absolute;
+    
+    /* UPDATED: This moves the logo down so the center hits the blue line */
+    top: 25px; 
+    
+    left: 0;
+    z-index: 1001; /* Keeps it on top of the blue border line */
+    transition: transform 0.3s ease;
+    
+    /* Optional: Adds a small white glow/border to separate logo from the blue line behind it */
+    filter: drop-shadow(0 0 5px rgba(0,0,0,0.3));
+}
+
+.logo-link:hover .logo-img {
+    transform: scale(1.05); 
+}
+
+.logo-text {
+    font-size: 1.5rem; 
+    font-weight: 800;
+    color: var(--white-color);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    line-height: 1.2;
+    
+    /* UPDATED: Increased padding to ensure text doesn't overlap the image */
+    padding-left: 130px; 
+}
+
+
+/* Navigation Links */
 .nav-links { list-style: none; display: flex; align-items: center; }
 .nav-links li { margin-left: 20px; }
 .nav-links a { color: var(--white-color); text-decoration: none; font-weight: bold; transition: color 0.3s; }
-
-/* Hover effect for regular menu links - turns Teal */
 .nav-links a:not(.nav-donate-btn):hover, .nav-links a:not(.nav-donate-btn).active { color: var(--primary-color); }
 
-/* Donate Button Style inside Navbar */
+/* Donate Button Style */
 .nav-donate-btn {
-    background-color: var(--primary-color); /* Teal background */
-    color: var(--dark-color) !important; /* Black text for contrast on teal */
+    background-color: var(--primary-color);
+    color: var(--dark-color) !important;
     padding: 10px 20px;
     border-radius: 5px;
     transition: all 0.3s ease;
-    font-weight: 800 !important; /* Extra bold */
+    font-weight: 800 !important;
 }
-/* Hover effect for Donate button - turns Gold */
 .nav-donate-btn:hover {
     background-color: var(--hover-color); 
     color: var(--dark-color) !important;
 }
 
-/* Hero Section (Home Page) */
+/* Hero Section */
 .hero { 
-    /* You might want to update this background image to something related to your specific soup kitchen later */
     background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), url('https://images.unsplash.com/photo-1547592180-85f173990554?q=80&w=2070&auto=format&fit=crop') no-repeat center center/cover; 
     height: 60vh; 
     color: var(--white-color); 
@@ -86,11 +124,11 @@ body {
 .hero .container { position: relative; z-index: 1; }
 .hero h2 { font-size: 3rem; margin-bottom: 10px; text-shadow: 2px 2px 4px rgba(0,0,0,0.5); }
 
-/* General Buttons (e.g., "Get Involved") */
+/* General Buttons */
 .btn { 
     display: inline-block; 
-    background: var(--primary-color); /* Teal */
-    color: var(--dark-color); /* Black text */
+    background: var(--primary-color);
+    color: var(--dark-color);
     padding: 10px 30px; 
     border-radius: 5px; 
     text-decoration: none; 
@@ -100,18 +138,17 @@ body {
     font-weight: bold;
     transition: background 0.3s ease;
 }
-.btn:hover { background: var(--hover-color); /* Gold on hover */ }
+.btn:hover { background: var(--hover-color); }
 
-/* Stats Section (Home Page) */
+/* Stats Section */
 .stats { padding: 4rem 0; background: var(--white-color); text-align: center; }
 .stats h2 { margin-bottom: 2rem; color: var(--dark-color); }
 .stats-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px; }
 .stat-box { background: var(--bg-color); padding: 2rem; border-radius: 10px; box-shadow: 0 2px 5px rgba(0,0,0,0.05); border: 1px solid #eee;}
-/* Icons turn Teal */
 .stat-box i { font-size: 3rem; color: var(--primary-color); margin-bottom: 1rem; }
 .stat-box h3 { font-size: 2.5rem; margin-bottom: 0.5rem; color: var(--dark-color); }
 
-/* Sub-page Header (About, Support, Donate, Contact) */
+/* Sub-page Header */
 .page-header { background: var(--dark-color); color: var(--white-color); padding: 3rem 0; text-align: center; border-bottom: 3px solid var(--primary-color); }
 .page-header h2 { font-size: 2.5rem; }
 
@@ -121,6 +158,29 @@ body {
 .card { background: var(--white-color); padding: 2rem; border: 1px solid #ddd; border-radius: 5px; text-align: center; box-shadow: 0 2px 5px rgba(0,0,0,0.05); }
 .card h3 { color: var(--dark-color); margin-bottom: 1rem; }
 
+/* Gallery Section */
+.gallery-section { padding: 3rem 0; background: var(--white-color); }
+.gallery-section h3 { text-align: center; margin-bottom: 2rem; font-size: 2rem; color: var(--dark-color); }
+.gallery-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 15px;
+}
+.gallery-grid img {
+    width: 100%;
+    height: 200px; /* Fixed height for uniformity */
+    object-fit: cover; /* Ensures images cover the area without distortion */
+    border-radius: 5px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+.gallery-grid img:hover {
+    transform: scale(1.5);
+    box-shadow: 0 8px 20px rgba(0,0,0,0.3);
+    cursor: pointer;
+    z-index: 10;
+    position: relative;
+}
 /* Donate Page Styles */
 .donate-container { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px; }
 .donate-card { background: var(--white-color); border: 2px solid var(--bg-color); border-radius: 8px; padding: 2rem; text-align: center; box-shadow: 0 4px 6px rgba(0,0,0,0.05); transition: transform 0.3s ease, border-color 0.3s ease;}
@@ -130,7 +190,6 @@ body {
 .donate-instructions { list-style: none; text-align: left; background: var(--bg-color); padding: 15px; border-radius: 5px; margin-top: 15px; font-size: 0.9rem; color: #555; }
 .donate-instructions li { margin-bottom: 5px; }
 .address-box { font-style: italic; background: var(--bg-color); padding: 10px; margin-top: 10px; border-radius: 5px; color: #555;}
-/* Specific buttons on donate page */
 .donate-action-btn { background-color: var(--primary-color); color: var(--dark-color); width: 100%; font-weight: bold;}
 .donate-action-btn:hover { background-color: var(--hover-color); }
 
@@ -142,14 +201,35 @@ body {
 /* Footer */
 footer { background: var(--dark-color); color: var(--white-color); text-align: center; padding: 1.5rem 0; margin-top: auto; border-top: 3px solid var(--primary-color); }
 
-/* --- RESPONSIVE MOBILE STYLES --- */
+/* --- RESPONSIVE MOBILE STYLES (UPDATED) --- */
 @media(max-width: 768px) {
-    body { padding-top: 120px; } 
-    
+    /* Reduced padding on mobile too */
+    body { padding-top: 140px; } 
+
     .navbar .container { flex-direction: column; text-align: center; }
     .nav-links { flex-direction: column; margin-top: 15px; width: 100%; }
     .nav-links li { margin: 10px 0; margin-left: 0; width: 100%; }
     .nav-donate-btn { display: block; width: 100%; text-align: center; }
+    
+    /* On mobile, we reset the overlapping effect for a cleaner stack */
+    .logo-link { 
+        flex-direction: column;
+        text-align: center;
+        margin-bottom: 10px;
+        gap: 5px;
+        height: auto; /* Reset fixed height */
+    }
+    
+    .logo-img { 
+        position: relative; /* Reset absolute position */
+        top: 0;
+        height: 80px; 
+    }
+    
+    .logo-text { 
+        padding-left: 0; /* Remove padding */
+        font-size: 1.5rem; 
+    }
     
     .grid-2 { grid-template-columns: 1fr; }
     .hero h2 { font-size: 2rem; }
